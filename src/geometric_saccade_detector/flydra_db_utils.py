@@ -3,25 +3,25 @@ from .structures import rows_dtype
 from .utils import locate_roots
 from flydra_analysis.a2 import xml_stimulus  # @UnresolvedImport
 import flydra_analysis.a2.core_analysis as core_analysis  # @UnresolvedImport
+import pdb
 
 import os
 
 warned_fixed_dt = False
 
 
-def consider_stimulus(h5file, verbose_problems=False,
-                      fanout_name="fanout.xml"):
+def consider_stimulus(h5file, fanout_name="fanout.xml", use_stim=False, verbose_problems=False):
     """ 
         Parses the corresponding fanout XML and finds IDs to use as well 
         as the stimulus.
         Returns 3 values: valid, use_objs_ids, stimulus.  
         valid is false if something was wrong
     """
-   
+    #pdb.set_trace()
     try:
         dirname = os.path.dirname(h5file)
         fanout_xml = os.path.join(dirname, fanout_name)
-        if not(os.path.exists(fanout_xml)):
+        if not(os.path.exists(fanout_xml)) and use_stim:
             if verbose_problems:
                 logger.error("Stim_xml path not found '%s' for file '%s'" % 
                              (h5file, fanout_xml))
@@ -31,18 +31,20 @@ def consider_stimulus(h5file, verbose_problems=False,
         (_, use_obj_ids, _, _, _) = ca.initial_file_load(h5file) 
 
         file_timestamp = timestamp_string_from_filename(h5file)
+        if use_stim:
+            fanout = xml_stimulus.xml_fanout_from_filename(fanout_xml)
+            include_obj_ids, exclude_obj_ids = \
+            fanout.get_obj_ids_for_timestamp(timestamp_string=file_timestamp)
+            if include_obj_ids is not None:
+                use_obj_ids = include_obj_ids
+            if exclude_obj_ids is not None:
+                use_obj_ids = list(set(use_obj_ids).difference(exclude_obj_ids))
 
-        fanout = xml_stimulus.xml_fanout_from_filename(fanout_xml)
-        include_obj_ids, exclude_obj_ids = \
-        fanout.get_obj_ids_for_timestamp(timestamp_string=file_timestamp)
-        if include_obj_ids is not None:
-            use_obj_ids = include_obj_ids
-        if exclude_obj_ids is not None:
-            use_obj_ids = list(set(use_obj_ids).difference(exclude_obj_ids))
-
-        episode = fanout._get_episode_for_timestamp(
-                                            timestamp_string=file_timestamp) 
-        (_, _, stim_fname) = episode 
+            episode = fanout._get_episode_for_timestamp(
+                                                timestamp_string=file_timestamp)
+            (_, _, stim_fname) = episode
+        else:
+            stim_fname = None
         return True, use_obj_ids, stim_fname
 
     except xml_stimulus.WrongXMLTypeError:
@@ -60,8 +62,8 @@ def consider_stimulus(h5file, verbose_problems=False,
         return False, None, None
     
         
-def get_good_files(where, pattern="*.h5", fanout_template="fanout.xml",
-                   verbose=False, confirm_problems=False):
+def get_good_files(where, pattern="*.h5", stim=False, fanout_template="fanout.xml",
+                   verbose=True, confirm_problems=True):
     """ Looks for .kh5 files in the filesystem. 
     
         @where can be either:
@@ -72,7 +74,7 @@ def get_good_files(where, pattern="*.h5", fanout_template="fanout.xml",
         Returns an array of tuples   (filename, obj_ids, stimulus)  
         for the valid files
     """
-    
+    #pdb.set_trace()
     all_files = locate_roots(pattern, where)
     
     if verbose:
@@ -83,7 +85,7 @@ def get_good_files(where, pattern="*.h5", fanout_template="fanout.xml",
 
     for filename in all_files:
         well_formed, use_obj_ids, stim_xml = \
-            consider_stimulus(filename, fanout_name=fanout_template)
+            consider_stimulus(filename, fanout_name=fanout_template, use_stim=stim)
 
         if not(well_formed):
             if confirm_problems:
@@ -102,18 +104,20 @@ def get_good_files(where, pattern="*.h5", fanout_template="fanout.xml",
 def timestamp_string_from_filename(filename):
     """Extracts timestamp string from filename"""
     ### TODO: check validity
-    _, data_file_base = os.path.split(filename)
-    return data_file_base[4:19]
+    #_, data_file_base = os.path.split(filename)
+    timestamp_string = os.path.split(filename)[1].split('.')[0].split('_')[1]
+    return timestamp_string
 
 
 def get_good_smoothed_tracks(filename, obj_ids,
                              min_frames_per_track,
                              use_smoothing,
-                             dynamic_model_name):
+                             dynamic_model_name,
+                             fps):
     ''' Yields (obj_id, rows) for each track in obj_ids in the file
         that has the given minimum number of frames. '''
             
-    frames_per_second = 60.0
+    frames_per_second = fps
     dt = 1 / frames_per_second
 
     ca = core_analysis.get_global_CachingAnalyzer()  

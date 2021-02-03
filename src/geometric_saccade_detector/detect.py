@@ -13,10 +13,13 @@ import sys
 import platform
 import traceback
 
+import pdb
+
 import flydra_analysis.a2.core_analysis as core_analysis  # @UnresolvedImport
    
 
 def main():
+    #pdb.set_trace()
     np.seterr(all='raise')
                  
     parser = OptionParser()
@@ -87,7 +90,7 @@ def main():
     if not os.path.exists(options.output_dir):
         os.makedirs(options.output_dir)
 
-    good_files = get_good_files(where=args, pattern="*.h5",
+    good_files = get_good_files(where=args, pattern="*.h5", stim=False,
                                 confirm_problems=options.confirm_problems)
 
     if len(good_files) == 0:
@@ -99,7 +102,9 @@ def main():
         for i in range(n):
             (filename, obj_ids, stim_fname) = good_files[i]
             # only maintain basename
-            stim_fname = os.path.splitext(os.path.basename(stim_fname))[0]
+            #pdb.set_trace()
+            if stim_fname:
+                stim_fname = os.path.splitext(os.path.basename(stim_fname))[0]
             basename = os.path.splitext(os.path.basename(filename))[0]
             
             output_basename = os.path.join(options.output_dir,
@@ -123,7 +128,8 @@ def main():
                     obj_ids=obj_ids,
                     min_frames_per_track=options.min_frames_per_track,
                     dynamic_model_name=options.dynamic_model_name,
-                    use_smoothing=options.smoothing):
+                    use_smoothing=options.smoothing,
+                    fps=options.fps):
     
                 all_data = rows.copy() if all_data is None \
                             else np.concatenate((all_data, rows))                
@@ -143,6 +149,7 @@ def main():
               'max_linear_acceleration': options.max_linear_acceleration,
               'min_linear_velocity': options.min_linear_velocity,
               'max_angular_velocity': options.max_angular_velocity,
+              'fps' : options.fps,
             }
             saccades, annotated_data = geometric_saccade_detect(all_data,
                                                                 params)

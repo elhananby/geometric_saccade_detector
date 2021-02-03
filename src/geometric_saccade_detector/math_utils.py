@@ -126,7 +126,7 @@ def compute_derivative(x, timestamp):
         d = scipy.signal.convolve(x, deriv_filter, mode='same',
                                   old_behavior=True)
     else:
-        d = scipy.signal.convolve(x, deriv_filter, mode=1)
+        d = scipy.signal.convolve(x, deriv_filter, mode='same')
     d[0] = d[1]
     d[-1] = d[-2]
     return d        

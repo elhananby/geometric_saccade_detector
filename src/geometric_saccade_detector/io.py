@@ -18,7 +18,7 @@ def saccades_write_all(basename, saccades):
 
     
 def saccades_read_h5(filename):
-    h5 = tables.openFile(filename, 'r')
+    h5 = tables.open_file(filename, 'r')
     saccades = np.array(h5.root.saccades, dtype=h5.root.saccades.dtype)
     # TODO: check the dtype is the same
     h5.close()
@@ -26,8 +26,8 @@ def saccades_read_h5(filename):
 
 
 def saccades_write_h5(filename, saccades):
-    h5file = tables.openFile(filename, mode="w")
-    table = h5file.createTable('/', 'saccades', saccades)
+    h5file = tables.open_file(filename, mode="w")
+    table = h5file.create_table('/', 'saccades', saccades)
     # if there is only one sample, then add a symbolic link 
     # to /flydra/samples/<SAMPLE>/saccades
     num_samples = len(np.unique(saccades[:]['sample']))
@@ -36,7 +36,7 @@ def saccades_write_h5(filename, saccades):
         parent = '/flydra/samples/%s' % sid
         name = 'saccades'
         target = table 
-        h5file.createHardLink(where=parent, name=name, target=target,
+        h5file.create_hard_link(where=parent, name=name, target=target,
                               createparents=True)
     
     h5file.close()
