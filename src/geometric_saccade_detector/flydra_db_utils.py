@@ -1,8 +1,8 @@
 from . import logger, np
 from .structures import rows_dtype
 from .utils import locate_roots
-from flydra.a2 import xml_stimulus  # @UnresolvedImport
-import flydra.a2.core_analysis as core_analysis  # @UnresolvedImport
+from flydra_analysis.a2 import xml_stimulus  # @UnresolvedImport
+import flydra_analysis.a2.core_analysis as core_analysis  # @UnresolvedImport
 
 import os
 
@@ -60,7 +60,7 @@ def consider_stimulus(h5file, verbose_problems=False,
         return False, None, None
     
         
-def get_good_files(where, pattern="*.kh5", fanout_template="fanout.xml",
+def get_good_files(where, pattern="*.h5", fanout_template="fanout.xml",
                    verbose=False, confirm_problems=False):
     """ Looks for .kh5 files in the filesystem. 
     

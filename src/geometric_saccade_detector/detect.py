@@ -13,7 +13,7 @@ import sys
 import platform
 import traceback
 
-import flydra.a2.core_analysis as core_analysis  # @UnresolvedImport
+import flydra_analysis.a2.core_analysis as core_analysis  # @UnresolvedImport
    
 
 def main():
@@ -45,8 +45,13 @@ def main():
     parser.add_option("--smoothing", help="Uses Kalman-smoothed data.",
                       default=False, action="store_true")
 
+    parser.add_option("--fps", help="Set framerate of recording.",
+                      default=100, action="store_true")
+
+    (options, args) = parser.parse_args(['--fps'])
+
     # detection parameters
-    dt = 1.0 / 60
+    dt = 1.0 / options.fps
     parser.add_option("--deltaT_inner_sec", default=4 * dt, type='float',
                       help="Inner interval [= %default]")
     parser.add_option("--deltaT_outer_sec", default=10 * dt, type='float',
@@ -82,7 +87,7 @@ def main():
     if not os.path.exists(options.output_dir):
         os.makedirs(options.output_dir)
 
-    good_files = get_good_files(where=args, pattern="*.kh5",
+    good_files = get_good_files(where=args, pattern="*.h5",
                                 confirm_problems=options.confirm_problems)
 
     if len(good_files) == 0:

@@ -5,7 +5,7 @@ setup(
 	version="1.2",
     package_dir={'':'src'},
     packages=find_packages('src'),
-    install_requires=['flydra', 'matplotlib>=1.0', 'PyContracts>=1.1,<2'],
+    install_requires=['flydra_core', 'flydra_analysis', 'matplotlib>=1.0', 'PyContracts>=1.1,<2'],
     entry_points={
          'console_scripts': [
            'geo_sac_detect  = geometric_saccade_detector.detect:main',
