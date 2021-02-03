@@ -111,10 +111,10 @@ def store_sample_in_flydra_db(saccades, db):
     for group in groups:
         db.add_sample_to_group(sample, group)
         
-    for k, v in attrs.items():
+    for k, v in list(attrs.items()):
         db.set_attr(sample, k, v)
     
-    print('Groups: %r' % db.list_groups_for_sample(sample))
+    print(('Groups: %r' % db.list_groups_for_sample(sample)))
     
     
         

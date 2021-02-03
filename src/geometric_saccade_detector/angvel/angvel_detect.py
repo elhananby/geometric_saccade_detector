@@ -29,7 +29,7 @@ def angvel_saccade_detect(rows,
     max_so_far = timestamp[0] - 1
     for i in range(len(timestamp)):
         if timestamp[i] <= max_so_far:
-            print('Irregular at %d: %s' % (i, ''))
+            print(('Irregular at %d: %s' % (i, '')))
             regular[i] = False
         else:
             regular[i] = True

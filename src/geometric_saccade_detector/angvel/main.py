@@ -154,7 +154,7 @@ def enumerate_chunks(N, max_chunk_size):
     for i in range(nchunks):
         begin = i * max_chunk_size
         end = min(begin + max_chunk_size, N)
-        yield range(begin, end)
+        yield list(range(begin, end))
 
 
 def main():

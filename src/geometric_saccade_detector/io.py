@@ -63,8 +63,8 @@ def saccades_read_mat(filename):
         ok = np.isfinite(x)
         bad, = np.nonzero(np.logical_not(ok))
         if len(bad):
-            print 'Fixing %d/%d non finite data in %s in %s' % \
-                (len(bad), len(saccades), field, filename)
+            print('Fixing %d/%d non finite data in %s in %s' % \
+                (len(bad), len(saccades), field, filename))
             saccades = saccades[ok]
             
     return saccades

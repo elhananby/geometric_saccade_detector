@@ -99,7 +99,7 @@ def angle_mean_and_std(theta):
     
     mean = np.arctan2(S.mean(), C.mean())
     
-    error = np.array(map(normalize_pi, theta - mean))
+    error = np.array(list(map(normalize_pi, theta - mean)))
     std = error.std()
     
     return mean, std

@@ -49,12 +49,12 @@ def consider_stimulus(h5file, verbose_problems=False,
         if verbose_problems:
             logger.error("Caught WrongXMLTypeError for '%s'" % file_timestamp)
         return False, None, None
-    except ValueError, ex:
+    except ValueError as ex:
         if verbose_problems:
             logger.error("Caught ValueError for '%s': %s" % 
                          (file_timestamp, ex))
         return False, None, None 
-    except Exception, ex:
+    except Exception as ex:
         logger.error('Not predicted exception while reading %s; %s' % 
                      (h5file, ex))
         return False, None, None
@@ -88,7 +88,7 @@ def get_good_files(where, pattern="*.kh5", fanout_template="fanout.xml",
         if not(well_formed):
             if confirm_problems:
                 logger.error("File %r not well described; skipping" % filename)
-                raw_input("Are you aware of this?")
+                input("Are you aware of this?")
         else:
             good_files.append((filename, use_obj_ids, stim_xml))
 

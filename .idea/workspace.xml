@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5b142493-5c63-4663-82f1-e076d7f0e883" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/docs/source/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/source/conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/sphinxtogithub.py" beforeDir="false" afterPath="$PROJECT_DIR$/docs/sphinxtogithub.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometric_saccade_detector/angvel/angvel_detect.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometric_saccade_detector/angvel/angvel_detect.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometric_saccade_detector/angvel/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometric_saccade_detector/angvel/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometric_saccade_detector/conversions/to_flydra_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometric_saccade_detector/conversions/to_flydra_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometric_saccade_detector/flydra_db_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometric_saccade_detector/flydra_db_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometric_saccade_detector/io.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometric_saccade_detector/io.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometric_saccade_detector/math_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometric_saccade_detector/math_utils.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1nyD304vyK8V0acOmMkaWoWNPeL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5b142493-5c63-4663-82f1-e076d7f0e883" name="Default Changelist" comment="" />
+      <created>1612353234911</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612353234911</updated>
+      <workItem from="1612353236773" duration="15000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
